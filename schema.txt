@@ -1,0 +1,184 @@
+# Designed Schema for GUVI Zen Class in dbdiagram.io
+# Also attached the exported pdf in the directory
+
+Table Users {
+    id SERIAL [pk]
+    username VARCHAR(50) [unique, not null]
+    email VARCHAR(100) [unique, not null]
+    password_hash VARCHAR(255) [not null]
+    first_name VARCHAR(50)
+    last_name VARCHAR(50)
+    role VARCHAR(20)
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Modules {
+    id SERIAL [pk]
+    title VARCHAR(100) [not null]
+    description TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Classes {
+    id SERIAL [pk]
+    course_id INTEGER [ref: > Modules.id]
+    start_date DATE
+    end_date DATE
+    schedule TEXT
+    location VARCHAR(255)
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Dashboards {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    content TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Tasks {
+    id SERIAL [pk]
+    class_id INTEGER [ref: > Classes.id]
+    title VARCHAR(100)
+    description TEXT
+    due_date DATE
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Webcode {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    code TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Capstone {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    title VARCHAR(100)
+    description TEXT
+    submission_date TIMESTAMP
+    grade VARCHAR(20)
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Queries {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    question TEXT
+    answer TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Requirements {
+    id SERIAL [pk]
+    class_id INTEGER [ref: > Classes.id]
+    requirement TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Portfolio_Submission {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    url VARCHAR(255)
+    submission_date TIMESTAMP
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Applications {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    position VARCHAR(100)
+    company VARCHAR(100)
+    status VARCHAR(20)
+    application_date TIMESTAMP
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Interview_Tasks {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    task TEXT
+    due_date TIMESTAMP
+    submission_date TIMESTAMP
+    status VARCHAR(20)
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Leave_Applications {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    start_date DATE
+    end_date DATE
+    reason TEXT
+    status VARCHAR(20)
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Mock_Interview {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    interviewer_id INTEGER [ref: > Users.id]
+    date TIMESTAMP
+    feedback TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Certificates {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    course_id INTEGER [ref: > Modules.id]
+    issue_date DATE
+    certificate_url VARCHAR(255)
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Testimonials {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    message TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Leaderboards {
+    id SERIAL [pk]
+    user_id INTEGER [ref: > Users.id]
+    score INTEGER
+    rank INTEGER
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Syllabus {
+    id SERIAL [pk]
+    course_id INTEGER [ref: > Modules.id]
+    content TEXT
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
+
+Table Placement_Board {
+    id SERIAL [pk]
+    company VARCHAR(100)
+    position VARCHAR(100)
+    description TEXT
+    apply_by_date DATE
+    created_at TIMESTAMP [default: `current_timestamp`]
+    updated_at TIMESTAMP [default: `current_timestamp`]
+}
